@@ -3,19 +3,13 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { clsx } from "clsx";
-// ÉTAPE 1: N'importer que les icônes nécessaires
-import { Monitor, User, type LucideIcon } from "lucide-react";
+// ÉTAPE 1: Importer tout sous un nom temporaire
+import * as AllIcons from "lucide-react";
 import type { WindowConfig } from "@/constants/windows";
 import { useDesktopStore } from "@/store/desktop-store";
 
-// ÉTAPE 2: Créer une "carte" sécurisée
-// ASSUREZ-VOUS que les clés ici ("bio") correspondent aux valeurs de 'config.icon'
-const IconsMap: { [key: string]: LucideIcon } = {
-  bio: User,
-  // Ajoutez vos autres icônes ici, par exemple :
-  // projects: FolderKanban,
-  // contact: Mail,
-};
+// ÉTAPE 2: Créer un objet 'Icons' propre, en excluant l'export 'default'
+const { default: _, ...Icons } = AllIcons;
 
 type DockButtonProps = {
   config: WindowConfig;
@@ -39,9 +33,9 @@ export const DockButton = ({ config }: DockButtonProps) => {
     };
   }, []);
 
-  // ÉTAPE 3: Utiliser la carte sécurisée pour trouver l'icône, avec 'Monitor' comme plan B
-  const Icon = IconsMap[config.icon] ?? Monitor;
-  
+  // ÉTAPE 3: Utiliser l'objet 'Icons' filtré.
+  // Utiliser 'AllIcons.Monitor' pour le fallback garantit qu'il existe.
+  const Icon = (Icons[config.icon as keyof typeof Icons] ?? AllIcons.Monitor) as React.ElementType;
   const isActive = activeWindow === config.id;
   const isOpen = windows[config.id]?.isOpen;
 
