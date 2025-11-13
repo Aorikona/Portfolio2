@@ -3,9 +3,19 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { clsx } from "clsx";
-import * as Icons from "lucide-react";
+// ÉTAPE 1: N'importer que les icônes nécessaires
+import { Monitor, User, type LucideIcon } from "lucide-react";
 import type { WindowConfig } from "@/constants/windows";
 import { useDesktopStore } from "@/store/desktop-store";
+
+// ÉTAPE 2: Créer une "carte" sécurisée
+// ASSUREZ-VOUS que les clés ici ("bio") correspondent aux valeurs de 'config.icon'
+const IconsMap: { [key: string]: LucideIcon } = {
+  bio: User,
+  // Ajoutez vos autres icônes ici, par exemple :
+  // projects: FolderKanban,
+  // contact: Mail,
+};
 
 type DockButtonProps = {
   config: WindowConfig;
@@ -29,7 +39,9 @@ export const DockButton = ({ config }: DockButtonProps) => {
     };
   }, []);
 
-  const Icon = (Icons[config.icon as keyof typeof Icons] ?? Icons.Monitor) as React.ElementType;
+  // ÉTAPE 3: Utiliser la carte sécurisée pour trouver l'icône, avec 'Monitor' comme plan B
+  const Icon = IconsMap[config.icon] ?? Monitor;
+  
   const isActive = activeWindow === config.id;
   const isOpen = windows[config.id]?.isOpen;
 
