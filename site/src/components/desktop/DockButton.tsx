@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { clsx } from "clsx";
 import * as Icons from "lucide-react";
@@ -29,7 +29,7 @@ export const DockButton = ({ config }: DockButtonProps) => {
     };
   }, []);
 
-  const Icon = Icons[config.icon as keyof typeof Icons] ?? Icons.Monitor;
+  const Icon = (Icons[config.icon as keyof typeof Icons] ?? Icons.Monitor) as React.ElementType;
   const isActive = activeWindow === config.id;
   const isOpen = windows[config.id]?.isOpen;
 
@@ -84,4 +84,3 @@ export const DockButton = ({ config }: DockButtonProps) => {
     </button>
   );
 };
-
