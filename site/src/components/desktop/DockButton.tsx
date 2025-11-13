@@ -2,21 +2,18 @@
 
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { clsx } from "clsx";
-// ÉTAPE 1: Importer tout sous un nom temporaire
-import * as AllIcons from "lucide-react";
+import clsx from "clsx";
+import * as Lucide from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import type { WindowConfig } from "@/constants/windows";
 import { useDesktopStore } from "@/store/desktop-store";
 
-// ÉTAPE 2: Créer un objet 'Icons' propre, en excluant l'export 'default'
-const { default: _, ...Icons } = AllIcons;
-
 type DockButtonProps = {
-  config: WindowConfig;
+  config: WindowConfig; // ideally: { icon: keyof typeof Lucide; ... }
 };
 
 export const DockButton = ({ config }: DockButtonProps) => {
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { openWindow, windows, activeWindow, setBioAnimationPending } =
     useDesktopStore((state) => ({
       openWindow: state.openWindow,
@@ -27,23 +24,21 @@ export const DockButton = ({ config }: DockButtonProps) => {
 
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
 
-  // ÉTAPE 3: Utiliser l'objet 'Icons' filtré.
-  // Utiliser 'AllIcons.Monitor' pour le fallback garantit qu'il existe.
-  const Icon = (Icons[config.icon as keyof typeof Icons] ?? AllIcons.Monitor) as React.ElementType;
+  // Dynamically pick the icon and type it as a LucideIcon
+  const Icon =
+    (Lucide[config.icon as keyof typeof Lucide] as LucideIcon | undefined) ??
+    Lucide.Monitor;
+
   const isActive = activeWindow === config.id;
   const isOpen = windows[config.id]?.isOpen;
 
   const handleClick = () => {
     if (config.id === "bio") {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
       setBioAnimationPending(true);
       timeoutRef.current = setTimeout(() => {
         openWindow(config.id);
@@ -51,7 +46,6 @@ export const DockButton = ({ config }: DockButtonProps) => {
       }, 1600);
       return;
     }
-
     openWindow(config.id);
   };
 
@@ -66,11 +60,12 @@ export const DockButton = ({ config }: DockButtonProps) => {
         whileTap={{ scale: 0.95 }}
         className={clsx(
           "flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br shadow-lg shadow-slate-950/60 transition",
-          `from-white/10 via-white/10 to-white/5`,
+          "from-white/10 via-white/10 to-white/5",
           isActive && "ring-2 ring-cyan-400/60",
         )}
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(148, 163, 255, 0.15), rgba(59, 130, 246, 0.08))`,
+          backgroundImage:
+            "linear-gradient(135deg, rgba(148,163,255,0.15), rgba(59,130,246,0.08))",
         }}
       >
         <Icon
