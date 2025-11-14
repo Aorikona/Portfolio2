@@ -1,11 +1,15 @@
+// Types d'ID de fenêtres
 export type WindowId = "projects" | "videos" | "bio" | "contact";
+
+// Clés valides d'icônes Lucide (type-only, pas d'import runtime)
+export type LucideKey = keyof typeof import("lucide-react");
 
 export type WindowConfig = {
   id: WindowId;
   label: string;
   description: string;
   accent: string;
-  icon: string;
+  icon: LucideKey; // important: clé valide d'icône Lucide
 };
 
 export const WINDOW_CONFIGS: Record<WindowId, WindowConfig> = {
@@ -28,7 +32,7 @@ export const WINDOW_CONFIGS: Record<WindowId, WindowConfig> = {
     label: "Bio",
     description: "Animation 3D et biographie interactive.",
     accent: "from-purple-400/60 to-fuchsia-400/60",
-    icon: "Sparkle",
+    icon: "Sparkles", // ⚠️ 'Sparkle' n'existe pas, c'est 'Sparkles'
   },
   contact: {
     id: "contact",
@@ -40,4 +44,3 @@ export const WINDOW_CONFIGS: Record<WindowId, WindowConfig> = {
 };
 
 export const DOCK_ORDER: WindowId[] = ["projects", "videos", "bio", "contact"];
-
