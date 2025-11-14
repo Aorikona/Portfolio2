@@ -1,3 +1,4 @@
+/*
 "use client";
 
 import React, { useEffect, useRef } from "react";
@@ -85,3 +86,4 @@ export const DockButton = ({ config }: DockButtonProps) => {
     </button>
   );
 };
+*/
