@@ -1,4 +1,3 @@
-/*
 "use client";
 
 import React, { useEffect, useRef } from "react";
@@ -10,7 +9,7 @@ import type { WindowConfig } from "@/constants/windows";
 import { useDesktopStore } from "@/store/desktop-store";
 
 type DockButtonProps = {
-  config: WindowConfig; // ideally: { icon: keyof typeof Lucide; ... }
+  config: WindowConfig;
 };
 
 export const DockButton = ({ config }: DockButtonProps) => {
@@ -29,13 +28,12 @@ export const DockButton = ({ config }: DockButtonProps) => {
     };
   }, []);
 
-  // Dynamically pick the icon and type it as a LucideIcon
-  const Icon =
-    (Lucide[config.icon as keyof typeof Lucide] as LucideIcon | undefined) ??
-    Lucide.Monitor;
+  // Résolution typée de l'icône à partir de son nom + fallback
+  const Resolved = Lucide[config.icon] as LucideIcon | undefined;
+  const Icon: LucideIcon = Resolved ?? Lucide.Monitor;
 
   const isActive = activeWindow === config.id;
-  const isOpen = windows[config.id]?.isOpen;
+  const isOpen = Boolean(windows[config.id]?.isOpen);
 
   const handleClick = () => {
     if (config.id === "bio") {
@@ -86,4 +84,3 @@ export const DockButton = ({ config }: DockButtonProps) => {
     </button>
   );
 };
-*/
