@@ -2,6 +2,7 @@
 
 import { AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
+import { useMemo, type ComponentType } from "react";
 import type { WindowId } from "@/constants/windows";
 import { useDesktopStore } from "@/store/desktop-store";
 import { FloatingWindow } from "@/components/desktop/FloatingWindow";
@@ -10,7 +11,7 @@ import { VideosWindow } from "@/components/windows/videos/VideosWindow";
 import { BioWindow } from "@/components/windows/bio/BioWindow";
 import { ContactWindow } from "@/components/windows/contact/ContactWindow";
 
-const WINDOW_COMPONENTS: Record<WindowId, () => JSX.Element> = {
+const WINDOW_COMPONENTS: Record<WindowId, ComponentType> = {
   projects: ProjectsWindow,
   videos: VideosWindow,
   bio: BioWindow,
@@ -40,10 +41,13 @@ const WINDOW_PRESETS: Record<
 };
 
 export const WindowStack = () => {
-  const windows = useDesktopStore((state) =>
-    Object.values(state.windows)
-      .filter((win) => win.isOpen)
-      .sort((a, b) => a.zIndex - b.zIndex),
+  const windowsMap = useDesktopStore((state) => state.windows);
+  const windows = useMemo(
+    () =>
+      Object.values(windowsMap)
+        .filter((win) => win.isOpen)
+        .sort((a, b) => a.zIndex - b.zIndex),
+    [windowsMap],
   );
 
   return (

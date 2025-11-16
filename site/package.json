@@ -4,8 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:local": "next dev -p 5173",
     "build": "next build",
     "start": "next start",
+    "start:local": "next start -p 5173",
+    "preview": "pnpm build && pnpm start -p 5173",
     "lint": "eslint",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",

@@ -1,13 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { useDesktopStore } from "@/store/desktop-store";
+// No-op hydration component.
+// Persist middleware was removed from the store, so there is nothing to rehydrate.
+// Keeping this file as a safe no-op to avoid build errors.
 
-export const StoreHydration = () => {
-  useEffect(() => {
-    // Hydrate the store on mount
-    useDesktopStore.persist.rehydrate();
-  }, []);
-
-  return null;
-};
+export const StoreHydration = () => null;
