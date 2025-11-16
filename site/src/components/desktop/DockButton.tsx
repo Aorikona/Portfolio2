@@ -74,12 +74,12 @@ export const DockButton = ({ config }: DockButtonProps) => {
             "linear-gradient(135deg, rgba(148,163,255,0.15), rgba(59,130,246,0.08))",
         }}
       >
-        <Icon
-          className={clsx(
+        {React.createElement(Icon, {
+          className: clsx(
             "h-7 w-7 text-slate-100 drop-shadow-[0_10px_20px_rgba(15,23,42,0.55)]",
             isActive ? "text-cyan-300" : "text-slate-100",
-          )}
-        />
+          ),
+        })}
       </motion.span>
       <motion.span
         layoutId={`${config.id}-indicator`}
