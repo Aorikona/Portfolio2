@@ -63,11 +63,14 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
                 },
               ];
             }
+            // Close all other windows (single window mode)
             return [
               key,
               {
                 ...win,
+                isOpen: false,
                 isActive: false,
+                zIndex: 0,
               },
             ];
           }),

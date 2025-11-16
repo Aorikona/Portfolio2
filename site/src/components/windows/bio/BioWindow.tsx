@@ -28,7 +28,7 @@ export const BioWindow = () => {
   const activeEvent = useMemo(() => TIMELINE[activeIndex], [activeIndex]);
 
   return (
-    <div className="flex h-full flex-col gap-6 px-6 py-6">
+    <div className="flex h-full flex-col gap-6 overflow-y-auto px-6 py-6">
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
           <h3 className="text-xl font-semibold text-white">

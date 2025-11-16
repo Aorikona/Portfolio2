@@ -51,7 +51,7 @@ export const WindowStack = () => {
   );
 
   return (
-    <div className="pointer-events-none relative z-10 mx-auto flex h-full w-full max-w-[1600px] flex-col items-center justify-center px-6 py-28">
+    <div className="pointer-events-none fixed inset-0 z-10 flex items-center justify-center">
       <AnimatePresence>
         {windows.map((window) => {
           const Renderer = WINDOW_COMPONENTS[window.id];
@@ -60,10 +60,7 @@ export const WindowStack = () => {
           return (
             <div
               key={window.id}
-              className={clsx(
-                "pointer-events-none absolute inset-x-0 mx-auto flex items-center justify-center",
-                preset?.className,
-              )}
+              className="pointer-events-none absolute inset-0 flex items-center justify-center"
               style={{ zIndex: window.zIndex }}
             >
               <FloatingWindow

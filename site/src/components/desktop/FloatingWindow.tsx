@@ -116,7 +116,7 @@ export const FloatingWindow = ({
           </button>
         </div>
       </header>
-      <div className="relative z-10 flex flex-1 flex-col rounded-b-3xl">
+      <div className="relative z-10 flex flex-1 flex-col overflow-hidden rounded-b-3xl">
         {children}
       </div>
       {footerSlot && (

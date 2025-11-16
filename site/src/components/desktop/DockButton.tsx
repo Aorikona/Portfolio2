@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import type { WindowConfig } from "@/constants/windows";
@@ -11,31 +10,14 @@ type DockButtonProps = {
 };
 
 export const DockButton = ({ config }: DockButtonProps) => {
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const openWindow = useDesktopStore((state) => state.openWindow);
   const windows = useDesktopStore((state) => state.windows);
   const activeWindow = useDesktopStore((state) => state.activeWindow);
-  const setBioAnimationPending = useDesktopStore((state) => state.setBioAnimationPending);
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
 
   const isActive = activeWindow === config.id;
   const isOpen = Boolean(windows[config.id]?.isOpen);
 
   const handleClick = () => {
-    if (config.id === "bio") {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      setBioAnimationPending(true);
-      timeoutRef.current = setTimeout(() => {
-        openWindow(config.id);
-        setBioAnimationPending(false);
-      }, 1600);
-      return;
-    }
     openWindow(config.id);
   };
 
