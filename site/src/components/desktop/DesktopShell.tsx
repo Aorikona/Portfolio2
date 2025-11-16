@@ -9,7 +9,7 @@ export const DesktopShell = () => {
   useWindowHotkeys();
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-slate-950 text-slate-200">
+    <div className="relative min-h-screen w-full overflow-hidden bg-slate-950 text-slate-200 pb-28 md:pb-32 lg:pb-0">
       <DesktopBackground />
       <WindowStack />
       <DesktopDock />

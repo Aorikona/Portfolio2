@@ -92,7 +92,7 @@ export const ContactWindow = () => {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid flex-1 grid-cols-1 gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 text-slate-100 lg:grid-cols-[2fr_1fr]"
+        className="grid flex-1 grid-cols-1 gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 pb-28 text-slate-100 lg:grid-cols-[2fr_1fr] lg:pb-6"
       >
         <div className="flex flex-col gap-4">
           <Field
@@ -127,7 +127,7 @@ export const ContactWindow = () => {
             error={errors.message?.message}
             {...register("message")}
           />
-          <div className="mt-2 flex items-center gap-3">
+          <div className="mt-2 mb-24 flex items-center gap-3 lg:mb-0">
             <button
               type="submit"
               disabled={status === "loading"}
