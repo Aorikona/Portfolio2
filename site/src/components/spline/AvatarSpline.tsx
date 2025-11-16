@@ -31,6 +31,23 @@ const AvatarSplineComponent = ({ pointer }: AvatarSplineProps) => {
   const isBioOpen = useDesktopStore((state) => Boolean(state.windows.bio?.isOpen));
   const containerRef = useRef<HTMLDivElement | null>(null);
 
+  // Suppress known Spline console errors
+  useEffect(() => {
+    const originalError = console.error;
+    console.error = (...args: any[]) => {
+      const message = args[0]?.toString() || '';
+      // Suppress benign Spline buffer warning
+      if (message.includes('Data read, but end of buffer not reached')) {
+        return;
+      }
+      originalError.apply(console, args);
+    };
+    
+    return () => {
+      console.error = originalError;
+    };
+  }, []);
+
   // Lazy-load heuristics:
   // - When Bio window is active/open
   // - On first user interaction (pointer/keyboard)
