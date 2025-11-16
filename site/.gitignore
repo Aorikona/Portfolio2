@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# test files
+contact-test.json
+contact-simple.json
+test-results/
+
+
+.vercel
