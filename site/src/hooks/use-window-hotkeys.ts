@@ -7,14 +7,10 @@ import type { WindowId } from "@/constants/windows";
 const dockHotkeys: WindowId[] = ["projects", "videos", "bio", "contact"];
 
 export const useWindowHotkeys = () => {
-  const { openWindow, closeWindow, activeWindow, dockItems } = useDesktopStore(
-    (state) => ({
-      openWindow: state.openWindow,
-      closeWindow: state.closeWindow,
-      activeWindow: state.activeWindow,
-      dockItems: state.dockItems,
-    }),
-  );
+  const openWindow = useDesktopStore((state) => state.openWindow);
+  const closeWindow = useDesktopStore((state) => state.closeWindow);
+  const activeWindow = useDesktopStore((state) => state.activeWindow);
+  const dockItems = useDesktopStore((state) => state.dockItems);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

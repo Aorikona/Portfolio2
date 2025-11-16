@@ -10,7 +10,7 @@ export const DesktopDock = () => {
   const dockItems = useDesktopStore((state) => state.dockItems);
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-10 flex items-center justify-center">
+    <div className="pointer-events-none absolute inset-x-0 bottom-10 z-[2147483647] flex items-center justify-center">
       <motion.div
         className="pointer-events-auto flex items-center gap-4 rounded-3xl border border-white/10 bg-white/8 px-6 py-4 shadow-[0_30px_70px_-35px_rgba(15,23,42,0.65)] backdrop-blur-2xl"
         initial={{ opacity: 0, y: 16 }}

@@ -4,7 +4,6 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { memo } from "react";
 import { usePointer } from "@/context/pointer-context";
-import { useDesktopStore } from "@/store/desktop-store";
 import { AvatarFallback } from "@/components/spline/AvatarFallback";
 
 const AvatarSpline = dynamic(() => import("../spline/AvatarSpline"), {
@@ -12,24 +11,29 @@ const AvatarSpline = dynamic(() => import("../spline/AvatarSpline"), {
   loading: () => <AvatarFallback />,
 });
 
-export const DesktopBackground = memo(() => {
-  const pointer = usePointer();
-  const hasOpenWindow = useDesktopStore((state) =>
-    Object.values(state.windows).some((win) => win.isOpen),
-  );
-
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-black" />
+const BackgroundImage = dynamic(
+  () => import("./BackgroundImage").then((mod) => ({ default: mod.BackgroundImage })),
+  {
+    ssr: false,
+    loading: () => (
       <Image
         src="/desk-backdrop.png"
         alt="Fond du bureau"
         fill
         priority
-        className={`object-cover opacity-35 transition-opacity duration-500 ${
-          hasOpenWindow ? "opacity-0" : "opacity-35"
-        }`}
+        className="object-cover opacity-35 transition-opacity duration-500"
       />
+    ),
+  }
+);
+
+export const DesktopBackground = memo(() => {
+  const pointer = usePointer();
+
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-black" />
+      <BackgroundImage />
       <div className="absolute inset-0 flex items-center justify-end pr-[10vw]">
         <AvatarSpline pointer={pointer} />
       </div>

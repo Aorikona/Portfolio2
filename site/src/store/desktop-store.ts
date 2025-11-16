@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
 import { DOCK_ORDER, WINDOW_CONFIGS, type WindowId } from "@/constants/windows";
 
 type WindowState = {
@@ -42,117 +41,98 @@ const createInitialWindowState = (): Record<WindowId, WindowState> => {
   }, {} as Record<WindowId, WindowState>);
 };
 
-export const useDesktopStore = create<DesktopState>()(
-  persist(
-    (set, get) => ({
+export const useDesktopStore = create<DesktopState>((set, get) => ({
+  windows: createInitialWindowState(),
+  activeWindow: "projects",
+  nextZ: 2,
+  bioAnimationPending: false,
+  dockItems: DOCK_ORDER,
+  openWindow: (id) => {
+    set((state) => ({
+      windows: {
+        ...Object.fromEntries(
+          (Object.entries(state.windows) as [WindowId, WindowState][]).map(([key, win]) => {
+            if (key === id) {
+              return [
+                key,
+                {
+                  ...win,
+                  isOpen: true,
+                  isActive: true,
+                  zIndex: state.nextZ,
+                },
+              ];
+            }
+            return [
+              key,
+              {
+                ...win,
+                isActive: false,
+              },
+            ];
+          }),
+        ),
+      },
+      activeWindow: id,
+      nextZ: state.nextZ + 1,
+    }));
+  },
+  closeWindow: (id) =>
+    set((state) => {
+      const windows = { ...state.windows };
+      windows[id] = { ...windows[id], isOpen: false, isActive: false, zIndex: 0 };
+
+      const remainingActive = Object.values(windows)
+        .filter((win) => win.isOpen)
+        .sort((a, b) => b.zIndex - a.zIndex)[0]?.id;
+
+      return {
+        windows,
+        activeWindow: remainingActive ?? null,
+      };
+    }),
+  toggleWindow: (id) => {
+    const { windows } = get();
+    if (windows[id]?.isOpen) {
+      get().closeWindow(id);
+    } else {
+      get().openWindow(id);
+    }
+  },
+  focusWindow: (id) =>
+    set((state) => ({
+      windows: Object.fromEntries(
+        (Object.entries(state.windows) as [WindowId, WindowState][]).map(([key, win]) => {
+          if (key === id) {
+            return [
+              key,
+              {
+                ...win,
+                isActive: true,
+                isOpen: true,
+                zIndex: state.nextZ,
+              },
+            ];
+          }
+
+          return [key, { ...win, isActive: false }];
+        }),
+      ) as Record<WindowId, WindowState>,
+      activeWindow: id,
+      nextZ: state.nextZ + 1,
+    })),
+  setBioAnimationPending: (value) =>
+    set(() => ({
+      bioAnimationPending: value,
+    })),
+  reset: () =>
+    set(() => ({
       windows: createInitialWindowState(),
       activeWindow: "projects",
       nextZ: 2,
       bioAnimationPending: false,
-      dockItems: DOCK_ORDER,
-      openWindow: (id) => {
-        set((state) => ({
-          windows: {
-            ...Object.fromEntries(
-              (Object.entries(state.windows) as [WindowId, WindowState][]).map(([key, win]) => {
-                if (key === id) {
-                  return [
-                    key,
-                    {
-                      ...win,
-                      isOpen: true,
-                      isActive: true,
-                      zIndex: state.nextZ,
-                    },
-                  ];
-                }
-                return [
-                  key,
-                  {
-                    ...win,
-                    isActive: false,
-                  },
-                ];
-              }),
-            ),
-          },
-          activeWindow: id,
-          nextZ: state.nextZ + 1,
-        }));
-      },
-      closeWindow: (id) =>
-        set((state) => {
-          const windows = { ...state.windows };
-          windows[id] = { ...windows[id], isOpen: false, isActive: false, zIndex: 0 };
-
-          const remainingActive = Object.values(windows)
-            .filter((win) => win.isOpen)
-            .sort((a, b) => b.zIndex - a.zIndex)[0]?.id;
-
-          return {
-            windows,
-            activeWindow: remainingActive ?? null,
-          };
-        }),
-      toggleWindow: (id) => {
-        const { windows } = get();
-        if (windows[id]?.isOpen) {
-          get().closeWindow(id);
-        } else {
-          get().openWindow(id);
-        }
-      },
-      focusWindow: (id) =>
-        set((state) => ({
-          windows: Object.fromEntries(
-            (Object.entries(state.windows) as [WindowId, WindowState][]).map(([key, win]) => {
-              if (key === id) {
-                return [
-                  key,
-                  {
-                    ...win,
-                    isActive: true,
-                    isOpen: true,
-                    zIndex: state.nextZ,
-                  },
-                ];
-              }
-
-              return [key, { ...win, isActive: false }];
-            }),
-          ) as Record<WindowId, WindowState>,
-          activeWindow: id,
-          nextZ: state.nextZ + 1,
-        })),
-      setBioAnimationPending: (value) =>
-        set(() => ({
-          bioAnimationPending: value,
-        })),
-      reset: () =>
-        set(() => ({
-          windows: createInitialWindowState(),
-          activeWindow: "projects",
-          nextZ: 2,
-          bioAnimationPending: false,
-        })),
-    }),
-    {
-      name: "desktop-storage",
-      storage: createJSONStorage(() => {
-        if (typeof window !== "undefined") {
-          return window.localStorage;
-        }
-        // Return a no-op storage for SSR
-        return {
-          getItem: () => null,
-          setItem: () => {},
-          removeItem: () => {},
-        };
-      }),
-      skipHydration: true,
-    }
-  )
-);
+    })),
+}));
 
 export const useOpenWindows = () =>
   useDesktopStore((state) =>

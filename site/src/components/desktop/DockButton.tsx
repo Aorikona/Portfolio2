@@ -12,13 +12,10 @@ type DockButtonProps = {
 
 export const DockButton = ({ config }: DockButtonProps) => {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const { openWindow, windows, activeWindow, setBioAnimationPending } =
-    useDesktopStore((state) => ({
-      openWindow: state.openWindow,
-      windows: state.windows,
-      activeWindow: state.activeWindow,
-      setBioAnimationPending: state.setBioAnimationPending,
-    }));
+  const openWindow = useDesktopStore((state) => state.openWindow);
+  const windows = useDesktopStore((state) => state.windows);
+  const activeWindow = useDesktopStore((state) => state.activeWindow);
+  const setBioAnimationPending = useDesktopStore((state) => state.setBioAnimationPending);
 
   useEffect(() => {
     return () => {
@@ -46,8 +43,12 @@ export const DockButton = ({ config }: DockButtonProps) => {
     <button
       type="button"
       onClick={handleClick}
+      aria-label={config.label}
+      title={config.label}
       className="relative flex h-16 w-16 items-center justify-center"
     >
+      {/* Ensure accessible name for Playwright and screen readers */}
+      <span className="sr-only">{config.label}</span>
       <motion.span
         whileHover={{ scale: 1.08, y: -4 }}
         whileTap={{ scale: 0.95 }}

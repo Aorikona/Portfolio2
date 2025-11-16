@@ -29,11 +29,9 @@ export const FloatingWindow = ({
   className,
   size,
 }: FloatingWindowProps) => {
-  const { closeWindow, focusWindow, windows } = useDesktopStore((state) => ({
-    closeWindow: state.closeWindow,
-    focusWindow: state.focusWindow,
-    windows: state.windows,
-  }));
+  const closeWindow = useDesktopStore((state) => state.closeWindow);
+  const focusWindow = useDesktopStore((state) => state.focusWindow);
+  const windows = useDesktopStore((state) => state.windows);
 
   const windowState = windows[windowId];
   const config = WINDOW_CONFIGS[windowId];
