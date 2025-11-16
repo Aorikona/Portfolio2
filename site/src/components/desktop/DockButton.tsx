@@ -29,7 +29,7 @@ export const DockButton = ({ config }: DockButtonProps) => {
   }, []);
 
   // Résolution typée de l'icône à partir de son nom + fallback
-  const Icon = (Lucide[config.icon] ?? Lucide.Monitor) as LucideIcon;
+  const IconComponent = (Lucide[config.icon] ?? Lucide.Monitor) as React.ComponentType<{ className?: string }>;
 
   const isActive = activeWindow === config.id;
   const isOpen = Boolean(windows[config.id]?.isOpen);
@@ -66,7 +66,7 @@ export const DockButton = ({ config }: DockButtonProps) => {
             "linear-gradient(135deg, rgba(148,163,255,0.15), rgba(59,130,246,0.08))",
         }}
       >
-        <Icon
+        <IconComponent
           className={clsx(
             "h-7 w-7 text-slate-100 drop-shadow-[0_10px_20px_rgba(15,23,42,0.55)]",
             isActive ? "text-cyan-300" : "text-slate-100",
