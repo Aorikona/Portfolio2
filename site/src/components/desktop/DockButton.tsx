@@ -29,8 +29,7 @@ export const DockButton = ({ config }: DockButtonProps) => {
   }, []);
 
   // Résolution typée de l'icône à partir de son nom + fallback
-  const Resolved = Lucide[config.icon] as LucideIcon | undefined;
-  const Icon: LucideIcon = Resolved ?? Lucide.Monitor;
+  const Icon = (Lucide[config.icon] ?? Lucide.Monitor) as LucideIcon;
 
   const isActive = activeWindow === config.id;
   const isOpen = Boolean(windows[config.id]?.isOpen);
