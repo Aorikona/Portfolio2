@@ -11,9 +11,7 @@ const AvatarSpline = dynamic(() => import("../spline/AvatarSpline"), {
   loading: () => <AvatarFallback />,
 });
 
-const BatHead = dynamic(() => import("./BatHead"), {
-  ssr: false,
-});
+
 
 const BackgroundImage = dynamic(
   () => import("./BackgroundImage").then((mod) => ({ default: mod.BackgroundImage })),
@@ -38,9 +36,6 @@ export const DesktopBackground = memo(() => {
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-black" />
       <BackgroundImage />
-      <div className="absolute inset-0 flex items-center justify-start pl-[10vw]">
-        <BatHead />
-      </div>
       <div className="absolute inset-0 flex items-center justify-end pr-[10vw]">
         <AvatarSpline pointer={pointer} />
       </div>
