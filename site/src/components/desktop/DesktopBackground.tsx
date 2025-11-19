@@ -14,7 +14,7 @@ const AvatarSpline = dynamic(() => import("../spline/AvatarSpline"), {
 
 
 const BackgroundImage = dynamic(
-  () => import("./BackgroundImage").then((mod) => ({ default: mod.BackgroundImage })),
+  () => import("./BackgroundImage").then((mod) => mod.BackgroundImage),
   {
     ssr: false,
     loading: () => (
@@ -45,4 +45,3 @@ export const DesktopBackground = memo(() => {
 });
 
 DesktopBackground.displayName = "DesktopBackground";
-

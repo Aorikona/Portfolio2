@@ -2,8 +2,8 @@
 
 import dynamic from "next/dynamic";
 
-const DesktopShell = dynamic(
-  () => import("@/components/desktop/DesktopShell").then((mod) => ({ default: mod.DesktopShell })),
+const DesktopShell = dynamic(() =>
+  import("@/components/desktop/DesktopShell").then((mod) => mod.DesktopShell),
   { ssr: false }
 );
 

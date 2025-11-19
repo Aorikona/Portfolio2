@@ -21,7 +21,7 @@ const description =
   "DevPortfolio conçoit des interfaces 3D/2D ultra performantes avec Next.js, Spline et framer-motion. Portfolio bureau interactif, vidéos immersives et storytelling créatif.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://devportfolio.studio"),
+  metadataBase: new URL("https://devportfolio.studio"), // This should be a string
   title: {
     default: title,
     template: "%s | DevPortfolio",
