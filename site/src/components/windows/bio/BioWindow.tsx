@@ -4,59 +4,59 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { clsx } from "clsx";
 
-// Données adaptées au profil "Anoki AUFRERE"
+// Data adapted to the "Anoki AUFRERE" profile
 const SKILLS = [
   { label: "HTML5 / CSS3", level: "expert" },
   { label: "JavaScript / React", level: "advanced" },
-  { label: "Suite Adobe (Ps/Ai/Ae)", level: "expert" },
-  { label: "Montage Vidéo", level: "expert" },
-  { label: "Design UX/UI", level: "advanced" },
-  { label: "Intégration Web", level: "expert" },
+  { label: "Adobe Suite (Ps/Ai/Ae)", level: "expert" },
+  { label: "Video Editing", level: "expert" },
+  { label: "UX/UI Design", level: "advanced" },
+  { label: "Web Integration", level: "expert" },
 ];
 
 const SOFT_SKILLS = [
-  "Créativité",
-  "Travail d'équipe",
-  "Rigueur technique",
-  "Gestion de projet",
-  "Adaptabilité",
+  "Creativity",
+  "Teamwork",
+  "Technical Rigor",
+  "Project Management",
+  "Adaptability",
 ];
 
 const TIMELINE = [
   {
     id: 1,
-    year: "2025 (Printemps)",
-    title: "Stage : Concepteur Web & Intégrateur",
+    year: "2025 (Spring)",
+    title: "Internship: Web Designer & Integrator",
     description:
-      "Contribution au développement front-end et à l'intégration de maquettes Figma pour un site vitrine orienté culture. Mise en pratique des connaissances en accessibilité et responsive design.",
+      "Contributed to front-end development and integration of Figma mockups for a culture-oriented showcase website. Applied knowledge of accessibility and responsive design principles.",
     highlights: [
-      "Intégration de 5 pages principales en HTML/CSS et React",
-      "Optimisation de l'accessibilité (WCAG)",
-      "Collaboration directe avec le designer UI/UX",
+      "Integration of 5 main pages using HTML/CSS and React",
+      "Accessibility optimization (WCAG)",
+      "Direct collaboration with the UI/UX designer",
     ],
   },
   {
     id: 2,
     year: "2024 - 2026",
-    title: "Formation : BUT Métiers du Multimédia et de l'Internet (MMI)",
+    title: "Education: MMI Degree (Multimedia and Internet Professions)",
     description:
-      "Acquisition de compétences fondamentales en développement web, design graphique, audiovisuel et gestion de projet numérique. Projet de fin d'année axé sur la création d'une application interactive.",
+      "Acquired fundamental skills in web development, graphic design, audiovisual production, and digital project management. Final year project focused on creating an interactive application.",
     highlights: [
-      "Spécialisation en Développement Web & Design",
-      "Maîtrise des outils Adobe (Photoshop, Illustrator, After Effects)",
-      "Projet tutoré en équipe (12 personnes) sur 6 mois",
+      "Specialization in Web Development & Design",
+      "Proficiency in Adobe tools (Photoshop, Illustrator, After Effects)",
+      "Team-based tutored project (12 people) over 6 months",
     ],
   },
   {
     id: 3,
-    year: "2023 (Été)",
-    title: "Freelance : Création de Contenu Vidéo",
+    year: "2023 (Summer)",
+    title: "Freelance: Video Content Creation",
     description:
-      "Réalisation de vidéos courtes pour des PME locales (tutoriels, présentations produits). Gestion de la production, du tournage au montage final et à l'étalonnage.",
+      "Produced short videos for local small and medium-sized enterprises (tutorials, product presentations). Managed production from filming to final editing and color grading.",
     highlights: [
-      "Gestion de la relation client et des briefs",
-      "Utilisation avancée de Première Pro et After Effects",
-      "Amélioration des compétences narratives et audiovisuelles",
+      "Client relationship management and brief handling",
+      "Advanced use of Premiere Pro and After Effects",
+      "Improved narrative and audiovisual skills",
     ],
   },
 ];
@@ -64,7 +64,7 @@ const TIMELINE = [
 export const BioWindow = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Utilisation de la timeline locale
+  // Using the local timeline
   const activeEvent = useMemo(() => TIMELINE[activeIndex], [activeIndex]);
 
   return (
@@ -72,18 +72,18 @@ export const BioWindow = () => {
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
           <h3 className="text-xl font-semibold text-white">
-            Salut, moi c’est Anoki 👋
+            Hi, I'm Anoki 👋
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-slate-300">
-            Étudiant en MMI avec une double passion pour le **Développement Web** performant et le **Design Multimédia** immersif. Je combine la logique du code (HTML, CSS, JavaScript) avec la créativité du graphisme et de l'audiovisuel pour créer des expériences numériques complètes et esthétiques. Mon objectif est de trouver un stage où je peux allier mes compétences techniques et artistiques.
+            MMI student with a dual passion for high-performance **Web Development** and immersive **Multimedia Design**. I combine the logic of code (HTML, CSS, JavaScript) with the creativity of graphic design and audiovisuals to create complete and aesthetic digital experiences. My goal is to find an internship where I can merge my technical and artistic skills.
           </p>
           <div className="mt-4 rounded-2xl border border-cyan-400/10 bg-cyan-400/5 p-4 text-sm text-cyan-100">
-            🎨 Actuellement à la recherche d'une **alternance** ou d'un **stage** en tant que **Développeur Front-end / Intégrateur** avec une forte sensibilité UI/UX.
+            🎨 Currently seeking an **apprenticeship** or **internship** as a **Front-end Developer / Integrator** with a strong UI/UX sensibility.
           </div>
         </div>
         <div className="rounded-3xl border border-white/10 bg-[radial-gradient(circle_at_top,rgba(148,163,255,0.15),rgba(15,23,42,0.85))] p-6">
           <h4 className="text-sm uppercase tracking-[0.3em] text-slate-300">
-            Compétences clés
+            Key Skills
           </h4>
           <ul className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-100">
             {SKILLS.map((skill) => (
@@ -104,7 +104,7 @@ export const BioWindow = () => {
       <section className="flex flex-1 flex-col gap-6 overflow-hidden rounded-3xl border border-white/8 bg-white/4 p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h4 className="text-sm uppercase tracking-[0.3em] text-slate-300">
-            Parcours & Expérience
+            Timeline & Experience
           </h4>
           <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-slate-200">
             {activeEvent.year}
@@ -167,10 +167,10 @@ export const BioWindow = () => {
       <section className="grid gap-4 rounded-3xl border border-white/10 bg-white/4 p-6 text-sm text-slate-200 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
           <h4 className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-300">
-            Approche & Valeurs
+            Approach & Values
           </h4>
           <p className="mt-3 leading-relaxed">
-            Je m'efforce de toujours créer des projets qui ne sont pas seulement fonctionnels, mais aussi **visuellement percutants**. Mon background en Design Graphique et Vidéo me permet d'aborder le développement web avec une perspective UI/UX aiguisée, garantissant une intégration pixel-perfect et une expérience utilisateur fluide. La gestion d'équipe et de projet, apprise en MMI, est clé dans mon processus.
+            I strive to always create projects that are not only functional but also **visually compelling**. My background in Graphic Design and Video allows me to approach web development with a sharp UI/UX perspective, ensuring pixel-perfect integration and a smooth user experience. Team and project management, learned in the MMI program, is key to my process.
           </p>
         </div>
         <div>
