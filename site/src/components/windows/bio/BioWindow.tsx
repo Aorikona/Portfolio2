@@ -3,28 +3,68 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { clsx } from "clsx";
-import { TIMELINE } from "@/data/timeline";
 
+// Données adaptées au profil "Anoki AUFRERE"
 const SKILLS = [
-  { label: "Next.js 14", level: "expert" },
-  { label: "Spline / Three.js", level: "expert" },
-  { label: "Framer Motion", level: "expert" },
-  { label: "WebGL / GLSL", level: "advanced" },
-  { label: "UX / UI Design", level: "advanced" },
-  { label: "Creative Coding", level: "expert" },
+  { label: "HTML5 / CSS3", level: "expert" },
+  { label: "JavaScript / React", level: "advanced" },
+  { label: "Suite Adobe (Ps/Ai/Ae)", level: "expert" },
+  { label: "Montage Vidéo", level: "expert" },
+  { label: "Design UX/UI", level: "advanced" },
+  { label: "Intégration Web", level: "expert" },
 ];
 
 const SOFT_SKILLS = [
-  "Pédagogie",
-  "Curiosité technologique",
-  "Design systems",
-  "Leadership produit",
-  "Approche data-driven",
+  "Créativité",
+  "Travail d'équipe",
+  "Rigueur technique",
+  "Gestion de projet",
+  "Adaptabilité",
+];
+
+const TIMELINE = [
+  {
+    id: 1,
+    year: "2025 (Printemps)",
+    title: "Stage : Concepteur Web & Intégrateur",
+    description:
+      "Contribution au développement front-end et à l'intégration de maquettes Figma pour un site vitrine orienté culture. Mise en pratique des connaissances en accessibilité et responsive design.",
+    highlights: [
+      "Intégration de 5 pages principales en HTML/CSS et React",
+      "Optimisation de l'accessibilité (WCAG)",
+      "Collaboration directe avec le designer UI/UX",
+    ],
+  },
+  {
+    id: 2,
+    year: "2024 - 2026",
+    title: "Formation : BUT Métiers du Multimédia et de l'Internet (MMI)",
+    description:
+      "Acquisition de compétences fondamentales en développement web, design graphique, audiovisuel et gestion de projet numérique. Projet de fin d'année axé sur la création d'une application interactive.",
+    highlights: [
+      "Spécialisation en Développement Web & Design",
+      "Maîtrise des outils Adobe (Photoshop, Illustrator, After Effects)",
+      "Projet tutoré en équipe (12 personnes) sur 6 mois",
+    ],
+  },
+  {
+    id: 3,
+    year: "2023 (Été)",
+    title: "Freelance : Création de Contenu Vidéo",
+    description:
+      "Réalisation de vidéos courtes pour des PME locales (tutoriels, présentations produits). Gestion de la production, du tournage au montage final et à l'étalonnage.",
+    highlights: [
+      "Gestion de la relation client et des briefs",
+      "Utilisation avancée de Première Pro et After Effects",
+      "Amélioration des compétences narratives et audiovisuelles",
+    ],
+  },
 ];
 
 export const BioWindow = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Utilisation de la timeline locale
   const activeEvent = useMemo(() => TIMELINE[activeIndex], [activeIndex]);
 
   return (
@@ -32,17 +72,13 @@ export const BioWindow = () => {
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
           <h3 className="text-xl font-semibold text-white">
-            Salut, moi c’est DevPortfolio 👋
+            Salut, moi c’est Anoki 👋
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-slate-300">
-            Développeur full stack passionné par les expériences immersives,
-            j’allie design, narrative et performance. Mon objectif : concevoir
-            des interfaces ultra-fluides, accessibles et mémorables, du concept
-            à la mise en production.
+            Étudiant en MMI avec une double passion pour le **Développement Web** performant et le **Design Multimédia** immersif. Je combine la logique du code (HTML, CSS, JavaScript) avec la créativité du graphisme et de l'audiovisuel pour créer des expériences numériques complètes et esthétiques. Mon objectif est de trouver un stage où je peux allier mes compétences techniques et artistiques.
           </p>
           <div className="mt-4 rounded-2xl border border-cyan-400/10 bg-cyan-400/5 p-4 text-sm text-cyan-100">
-            🌌 Actuellement en mission pour studios XR, scale-ups et marques
-            premium cherchant à élever leurs expériences web/3D.
+            🎨 Actuellement à la recherche d'une **alternance** ou d'un **stage** en tant que **Développeur Front-end / Intégrateur** avec une forte sensibilité UI/UX.
           </div>
         </div>
         <div className="rounded-3xl border border-white/10 bg-[radial-gradient(circle_at_top,rgba(148,163,255,0.15),rgba(15,23,42,0.85))] p-6">
@@ -68,7 +104,7 @@ export const BioWindow = () => {
       <section className="flex flex-1 flex-col gap-6 overflow-hidden rounded-3xl border border-white/8 bg-white/4 p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h4 className="text-sm uppercase tracking-[0.3em] text-slate-300">
-            Timeline interactive
+            Parcours & Expérience
           </h4>
           <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-slate-200">
             {activeEvent.year}
@@ -131,13 +167,10 @@ export const BioWindow = () => {
       <section className="grid gap-4 rounded-3xl border border-white/10 bg-white/4 p-6 text-sm text-slate-200 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
           <h4 className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-300">
-            ADN & vision
+            Approche & Valeurs
           </h4>
           <p className="mt-3 leading-relaxed">
-            Je crois en des expériences web qui racontent une histoire, tout en
-            restant ultra performantes. Chaque projet est designé pour être
-            performant, accessible et scénarisé, avec une attention obsessionnelle
-            pour les micro-interactions.
+            Je m'efforce de toujours créer des projets qui ne sont pas seulement fonctionnels, mais aussi **visuellement percutants**. Mon background en Design Graphique et Vidéo me permet d'aborder le développement web avec une perspective UI/UX aiguisée, garantissant une intégration pixel-perfect et une expérience utilisateur fluide. La gestion d'équipe et de projet, apprise en MMI, est clé dans mon processus.
           </p>
         </div>
         <div>
@@ -159,4 +192,3 @@ export const BioWindow = () => {
     </div>
   );
 };
-
