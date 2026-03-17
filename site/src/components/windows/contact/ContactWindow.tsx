@@ -214,6 +214,7 @@ const Field = ({
   ...rest
 }: FieldProps & InputHTMLAttributes<HTMLInputElement> & TextareaHTMLAttributes<HTMLTextAreaElement>) => {
   const isTextarea = as === "textarea";
+  const errorId = `${rest.name}-error`;
 
   return (
     <label className="flex flex-col gap-2 text-sm text-slate-200">
@@ -224,6 +225,8 @@ const Field = ({
         <textarea
           placeholder={placeholder}
           rows={rows}
+          aria-invalid={!!error}
+          aria-errormessage={error ? errorId : undefined}
           className={clsx(
             "w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-sm text-white placeholder:text-slate-500 focus:border-cyan-300/70 focus:outline-none focus:ring-2 focus:ring-cyan-400/30",
             error && "border-pink-400/50 focus:ring-pink-400/30",
@@ -233,6 +236,8 @@ const Field = ({
       ) : (
         <input
           placeholder={placeholder}
+          aria-invalid={!!error}
+          aria-errormessage={error ? errorId : undefined}
           className={clsx(
             "w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-sm text-white placeholder:text-slate-500 focus:border-cyan-300/70 focus:outline-none focus:ring-2 focus:ring-cyan-400/30",
             error && "border-pink-400/50 focus:ring-pink-400/30",
@@ -240,7 +245,7 @@ const Field = ({
           {...(rest as InputHTMLAttributes<HTMLInputElement>)}
         />
       )}
-      {error && <span className="text-xs text-pink-300">{error}</span>}
+      {error && <span id={errorId} className="text-xs text-pink-300" aria-live="polite">{error}</span>}
     </label>
   );
 };
