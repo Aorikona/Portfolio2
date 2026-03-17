@@ -27,7 +27,7 @@ export const DockButton = ({ config }: DockButtonProps) => {
       onClick={handleClick}
       aria-label={config.label}
       title={config.label}
-      className="relative flex h-16 w-16 items-center justify-center"
+      className="relative flex h-16 w-16 items-center justify-center rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
     >
       {/* Ensure accessible name for Playwright and screen readers */}
       <span className="sr-only">{config.label}</span>

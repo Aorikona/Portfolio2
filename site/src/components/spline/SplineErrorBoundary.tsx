@@ -21,7 +21,7 @@ export class SplineErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
     if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
+
       console.error("Spline runtime error:", error, info);
     }
   }
